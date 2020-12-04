@@ -1,4 +1,6 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Internet;
+
+import com.andrii.project_zero.Model.Post;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,7 +14,7 @@ public class Post
     private String calledMethod;
 
     @SerializedName("methodProperties")
-    MethodProperties methodProperties;
+    public MethodProperties methodProperties;
 
     @SerializedName("success")
     private String Success;
@@ -67,7 +67,7 @@ public class Post
         return Success;
     }
 
-    public com.andrii.project_zero.Data getData(int i)
+    public com.andrii.project_zero.Model.Data getData(int i)
     {
         return Data[i];
     }

@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +11,14 @@ import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
-import static com.andrii.project_zero.FindCityFragment.cities;
-import static com.andrii.project_zero.CalculationFragment.CITY_SENDER;
-import static com.andrii.project_zero.CalculationFragment.CITY_RECIPIENT;
-import static com.andrii.project_zero.CalculationFragment.idCitySender;
-import static com.andrii.project_zero.CalculationFragment.idCityRecipient;
+import com.andrii.project_zero.Activities.OnBackPressedListener;
+import com.andrii.project_zero.R;
+
+import static com.andrii.project_zero.Fragments.FindCityFragment.cities;
+import static com.andrii.project_zero.Fragments.CalculationFragment.CITY_SENDER;
+import static com.andrii.project_zero.Fragments.CalculationFragment.CITY_RECIPIENT;
+import static com.andrii.project_zero.Fragments.CalculationFragment.idCitySender;
+import static com.andrii.project_zero.Fragments.CalculationFragment.idCityRecipient;
 
 public class FindCitySpinnerFragment extends Fragment implements OnBackPressedListener
 {

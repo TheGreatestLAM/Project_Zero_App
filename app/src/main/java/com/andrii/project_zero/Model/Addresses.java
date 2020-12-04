@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Model;
 
 import com.google.gson.annotations.SerializedName;
 

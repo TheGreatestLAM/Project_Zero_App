@@ -1,5 +1,6 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.andrii.project_zero.Activities.OnBackPressedListener;
+import com.andrii.project_zero.Model.MethodProperties;
+import com.andrii.project_zero.Internet.NetworkService;
+import com.andrii.project_zero.Model.Post;
+import com.andrii.project_zero.R;
 
 import java.util.ArrayList;
 
@@ -30,8 +37,8 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
 
     static int REQUEST_STATUS=0;
     static final String API_KEY = "bae36b024d30b4f7a74f6b0e5176b41b";
-    static int CITY_SENDER; // флаг города отправителя
-    static int CITY_RECIPIENT; // флаг города получателя
+    static int CITY_SENDER=0; // флаг города отправителя
+    static int CITY_RECIPIENT=0; // флаг города получателя
     static int idCitySender=-1; // id города отправителя
     static int idCityRecipient=-1; // id города получателя
     static Post postRespSender, postRespRecipient;
@@ -40,8 +47,8 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
     static ArrayList<String> CargoTypes = new ArrayList<String>();
 
     int idCargoType;
-    String strSender, strRecipient, strResCalc;
-    MethodProperties methodProperties = new MethodProperties("", "", 0, "", 0, "",0);
+    String strSender, strRecipient;
+    MethodProperties methodProperties = new MethodProperties();
     Post postCalc = new Post(API_KEY, "InternetDocument", "getDocumentPrice", methodProperties);
     Post[] postRes = new Post[4];
 
@@ -123,7 +130,6 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
             public void onClick(View v)
             {
                 tv8fc.setText("");
-                strResCalc="";
 
                 if(idCitySender==-1)
                 {
@@ -168,41 +174,7 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
                     postCalc.methodProperties.setCost(Integer.parseInt(et3fc.getText().toString()));
                 }
 
-                for(int i=0; i<postServiceTypes.getDataArrayLength(); i++)
-                {
-                    final int finalI = i;
-                    postCalc.methodProperties.setServiceType(postServiceTypes.getData(finalI).getRef());
-                    NetworkService.getInstance()
-                            .getJSONApi()
-                            .postData(postCalc)
-                            .enqueue(new Callback<Post>() {
-                                @Override
-                                public void onResponse(@NonNull Call<Post> call, @NonNull Response<Post> response) {
-                                    postRes[finalI] = response.body();
-
-                                    if(postRes[finalI].getSuccess()=="true")
-                                    {
-                                        tv8fc.append(postServiceTypes.getData(finalI).getDescription() + " ");
-                                        tv8fc.append(postRes[finalI].getData(0).getCost() + " грн" + "\n" + "\n");
-                                    }
-
-                                    else
-                                    {
-                                        Toast.makeText(getActivity(),
-                                                "Request error!", Toast.LENGTH_SHORT)
-                                                .show();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
-                                    Toast.makeText(getActivity(),
-                                            "Error occurred while getting request!", Toast.LENGTH_SHORT)
-                                            .show();
-                                    t.printStackTrace();
-                                }
-                            });
-                }
+                new AsyncTaskCalculation().execute();
             }
         });
 
@@ -214,5 +186,50 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.activity_main, new MainFragment())
                 .commit();
+    }
+
+    class AsyncTaskCalculation extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected Void doInBackground(Void... voids)
+        {
+            for(int i=0; i<postServiceTypes.getDataArrayLength(); i++)
+            {
+                final int finalI = i;
+                postCalc.methodProperties.setServiceType(postServiceTypes.getData(finalI).getRef());
+                NetworkService.getInstance()
+                        .getJSONApi()
+                        .postData(postCalc)
+                        .enqueue(new Callback<Post>() {
+                            @Override
+                            public void onResponse(@NonNull Call<Post> call, @NonNull Response<Post> response) {
+                                postRes[finalI] = response.body();
+
+                                if(postRes[finalI].getSuccess()=="true")
+                                {
+                                    tv8fc.append(postServiceTypes.getData(finalI).getDescription() + " ");
+                                    tv8fc.append(postRes[finalI].getData(0).getCost() + " грн" + "\n" + "\n");
+                                }
+
+                                else
+                                {
+                                    Toast.makeText(getActivity(),
+                                            "Request error!", Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
+                                Toast.makeText(getActivity(),
+                                        "Error occurred while getting request!", Toast.LENGTH_SHORT)
+                                        .show();
+                                t.printStackTrace();
+                            }
+                        });
+            }
+
+            return null;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -31,15 +31,8 @@ public class MethodProperties
     @SerializedName("Limit")
     private int Limit;
 
-    public MethodProperties(String citySender, String cityRecipient, int weight, String serviceType, int cost, String cargoType, int seatsAmount)
+    public MethodProperties()
     {
-        CitySender = citySender;
-        CityRecipient = cityRecipient;
-        Weight = weight;
-        ServiceType = serviceType;
-        Cost = cost;
-        CargoType = cargoType;
-        SeatsAmount = seatsAmount;
     }
 
     public MethodProperties(int limit)

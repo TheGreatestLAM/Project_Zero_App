@@ -1,10 +1,13 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+
+import com.andrii.project_zero.Fragments.MainFragment;
+import com.andrii.project_zero.R;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -29,16 +32,27 @@ public class MainActivity extends AppCompatActivity
         OnBackPressedListener backPressedListener = null;
         for (Fragment fragment: fm.getFragments())
         {
-            if (fragment instanceof  OnBackPressedListener)
+            try
             {
                 backPressedListener = (OnBackPressedListener) fragment;
                 break;
             }
+
+            catch (Exception e)
+            {}
+
+//            if (fragment instanceof  OnBackPressedListener)
+//            {
+//                backPressedListener = (OnBackPressedListener) fragment;
+//                break;
+//            }
         }
+
         if (backPressedListener != null)
         {
             backPressedListener.onBackPressed();
         }
+
         else
         {
             super.onBackPressed();

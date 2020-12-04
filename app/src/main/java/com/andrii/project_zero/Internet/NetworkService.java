@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Internet;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

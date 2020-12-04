@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Activities;
 
 public interface OnBackPressedListener
 {

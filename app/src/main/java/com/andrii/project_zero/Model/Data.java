@@ -1,4 +1,4 @@
-package com.andrii.project_zero;
+package com.andrii.project_zero.Model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -45,7 +45,7 @@ public class Data
         return TotalCount;
     }
 
-    public com.andrii.project_zero.Addresses getAddresses(int i)
+    public com.andrii.project_zero.Model.Addresses getAddresses(int i)
     {
         return Addresses[i];
     }
