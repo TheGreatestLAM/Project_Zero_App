@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Project_Zero</string>
+    <string name="fm_btn1">Розрахунок</string>
+    <string name="fc_tv1">Звідки*</string>
+    <string name="fc_tv2">Куди*</string>
+    <string name="fc_tv3">Вид вантажу*</string>
+    <string name="fc_tv4">Вага*</string>
+    <string name="fc_tv5">Кількість місць*</string>
+    <string name="fc_tv6">Оціночна вартість</string>
+    <string name="fc_tv7">* - обов`язкові параметри</string>
+    <string name="fc_btn3">Розрахувати</string>
+    <string name="ffc_btn1">Шукати</string>
+    <string name="ffcs_btn1">Підтвердити</string>
+    <string name="ffc_et1">введіть назву міста</string>
+</resources>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv1fc"
+            android:layout_weight="0.2"
+            android:text="@string/fc_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn1fc"
+            android:layout_weight="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv2fc"
+            android:layout_weight="0.2"
+            android:text="@string/fc_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn2fc"
+            android:layout_weight="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv3fc"
+            android:layout_weight="0.2"
+            android:text="@string/fc_tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <Spinner
+            android:id="@+id/sp1fc"
+            android:layout_weight="0.8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv4fc"
+            android:layout_weight="0.2"
+            android:text="@string/fc_tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et1fc"
+            android:layout_weight="0.8"
+            android:inputType="numberDecimal"
+            android:maxLength="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv5fc"
+            android:layout_weight="0.2"
+            android:text="@string/fc_tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et2fc"
+            android:layout_weight="0.8"
+            android:inputType="number"
+            android:maxLength="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv6fc"
+            android:layout_weight="0.2"
+            android:text="@string/fc_tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et3fc"
+            android:layout_weight="0.8"
+            android:inputType="number"
+            android:maxLength="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/tv7fc"
+            android:layout_weight="1"
+            android:text="@string/fc_tv7"
+            android:layout_width="10dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"/>
+
+    </TableRow>
+
+    <TableRow android:gravity="center">
+
+        <Button
+            android:id="@+id/btn3fc"
+            android:text="@string/fc_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+    </TableRow>
+
+    <TextView
+        android:id="@+id/tv8fc"
+        android:textSize="21sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</TableLayout>
