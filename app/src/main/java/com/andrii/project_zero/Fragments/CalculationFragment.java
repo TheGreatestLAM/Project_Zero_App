@@ -46,7 +46,7 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
     static Post postCargoTypes = new Post(API_KEY, "Common", "getCargoTypes");
     static ArrayList<String> CargoTypes = new ArrayList<String>();
 
-    private int FLAG=0;
+    private int FLAG=-1;
     int idCargoType;
     String strSender, strRecipient;
     MethodProperties methodProperties = new MethodProperties();

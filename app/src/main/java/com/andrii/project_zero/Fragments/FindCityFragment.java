@@ -63,8 +63,7 @@ public class FindCityFragment extends Fragment implements OnBackPressedListener
                         .show();
                     return;
                 }
-
-                //post.methodProperties.setCityName("Запорожье");
+                
                 post.methodProperties.setCityName(et1ffc.getText().toString());
                 new AsyncTaskFindCity().execute();
             }
