@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import com.andrii.project_zero.Activities.OnBackPressedListener;
 import com.andrii.project_zero.Model.MethodProperties;
-import com.andrii.project_zero.Internet.NetworkService;
+import com.andrii.project_zero.Model.NetworkService;
 import com.andrii.project_zero.Model.Post;
 import com.andrii.project_zero.R;
 
@@ -46,6 +46,7 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
     static Post postCargoTypes = new Post(API_KEY, "Common", "getCargoTypes");
     static ArrayList<String> CargoTypes = new ArrayList<String>();
 
+    private int FLAG=0;
     int idCargoType;
     String strSender, strRecipient;
     MethodProperties methodProperties = new MethodProperties();
@@ -188,7 +189,7 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
                 .commit();
     }
 
-    class AsyncTaskCalculation extends AsyncTask<Void, Void, Void>
+    class AsyncTaskCalculation extends AsyncTask<Void, Integer, Void>
     {
         @Override
         protected Void doInBackground(Void... voids)
@@ -213,23 +214,39 @@ public class CalculationFragment extends Fragment implements OnBackPressedListen
 
                                 else
                                 {
-                                    Toast.makeText(getActivity(),
-                                            "Request error!", Toast.LENGTH_SHORT)
-                                            .show();
+                                    FLAG=0;
+                                    publishProgress(FLAG);
                                 }
                             }
 
                             @Override
                             public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
-                                Toast.makeText(getActivity(),
-                                        "Error occurred while getting request!", Toast.LENGTH_SHORT)
-                                        .show();
+                                FLAG=1;
+                                publishProgress(FLAG);
                                 t.printStackTrace();
                             }
                         });
             }
 
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values)
+        {
+            switch (FLAG)
+            {
+                case 0:
+                    Toast.makeText(getActivity(),
+                            "Request error!", Toast.LENGTH_SHORT)
+                            .show();
+                    break;
+                case 1:
+                    Toast.makeText(getActivity(),
+                            "Error occurred while getting request!", Toast.LENGTH_SHORT)
+                            .show();
+                    break;
+            }
         }
     }
 }

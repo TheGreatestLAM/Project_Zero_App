@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.andrii.project_zero.Internet.NetworkService;
+import com.andrii.project_zero.Model.NetworkService;
 import com.andrii.project_zero.Model.Post;
 import com.andrii.project_zero.R;
 
@@ -27,6 +27,8 @@ import static com.andrii.project_zero.Fragments.CalculationFragment.postServiceT
 public class MainFragment extends Fragment
 {
     Button btn1fm;
+
+    private int FLAG=-1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +57,7 @@ public class MainFragment extends Fragment
         return view;
     }
 
-    class AsyncTaskMain extends AsyncTask<Void, Void, Void>
+    class AsyncTaskMain extends AsyncTask<Void, Integer, Void>
     {
         @Override
         protected Void doInBackground(Void... voids)
@@ -70,17 +72,15 @@ public class MainFragment extends Fragment
 
                             if(postServiceTypes.getSuccess()=="false")
                             {
-                                Toast.makeText(getActivity(),
-                                        "Request error!", Toast.LENGTH_SHORT)
-                                        .show();
+                                FLAG=0;
+                                publishProgress(FLAG);
                             }
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
-                            Toast.makeText(getActivity(),
-                                    "Error occurred while getting request!", Toast.LENGTH_SHORT)
-                                    .show();
+                            FLAG=1;
+                            publishProgress(FLAG);
                             t.printStackTrace();
                         }
                     });
@@ -103,22 +103,38 @@ public class MainFragment extends Fragment
 
                             else
                             {
-                                Toast.makeText(getActivity(),
-                                        "Request error!", Toast.LENGTH_SHORT)
-                                        .show();
+                                FLAG=0;
+                                publishProgress(FLAG);
                             }
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
-                            Toast.makeText(getActivity(),
-                                    "Error occurred while getting request!", Toast.LENGTH_SHORT)
-                                    .show();
+                            FLAG=1;
+                            publishProgress(FLAG);
                             t.printStackTrace();
                         }
                     });
 
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values)
+        {
+            switch (FLAG)
+            {
+                case 0:
+                    Toast.makeText(getActivity(),
+                            "Request error!", Toast.LENGTH_SHORT)
+                            .show();
+                    break;
+                case 1:
+                    Toast.makeText(getActivity(),
+                            "Error occurred while getting request!", Toast.LENGTH_SHORT)
+                            .show();
+                    break;
+            }
         }
     }
 }

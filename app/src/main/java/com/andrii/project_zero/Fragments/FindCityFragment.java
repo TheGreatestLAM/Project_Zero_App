@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.andrii.project_zero.Activities.OnBackPressedListener;
 import com.andrii.project_zero.Model.MethodProperties;
-import com.andrii.project_zero.Internet.NetworkService;
+import com.andrii.project_zero.Model.NetworkService;
 import com.andrii.project_zero.Model.Post;
 import com.andrii.project_zero.R;
 
@@ -38,6 +38,7 @@ public class FindCityFragment extends Fragment implements OnBackPressedListener
     static ArrayList<String> cities = new ArrayList<String>();
 
     int limit=32;
+    private int FLAG=-1;
     MethodProperties methodPropertiesCity = new MethodProperties(limit);
     Post post = new Post(API_KEY, "Address", "searchSettlements", methodPropertiesCity);
     Post postResp;
@@ -63,6 +64,7 @@ public class FindCityFragment extends Fragment implements OnBackPressedListener
                     return;
                 }
 
+                //post.methodProperties.setCityName("Запорожье");
                 post.methodProperties.setCityName(et1ffc.getText().toString());
                 new AsyncTaskFindCity().execute();
             }
@@ -81,7 +83,7 @@ public class FindCityFragment extends Fragment implements OnBackPressedListener
                 .commit();
     }
 
-    class AsyncTaskFindCity extends AsyncTask<Void, Void, Void>
+    class AsyncTaskFindCity extends AsyncTask<Void, Integer, Void>
     {
         @Override
         protected Void doInBackground(Void... voids)
@@ -99,9 +101,8 @@ public class FindCityFragment extends Fragment implements OnBackPressedListener
                             {
                                 if(postResp.getData(0).getTotalCount()==0)
                                 {
-                                    Toast.makeText(getActivity(),
-                                            "Search error!", Toast.LENGTH_SHORT)
-                                            .show();
+                                    FLAG=0;
+                                    publishProgress(FLAG);
                                 }
 
                                 else
@@ -139,31 +140,51 @@ public class FindCityFragment extends Fragment implements OnBackPressedListener
                                     if(CITY_RECIPIENT == 1)
                                         postRespRecipient=postResp;
 
-                                    getActivity().getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.activity_main, new FindCitySpinnerFragment())
-                                            .commit();
+                                    FLAG=1;
+                                    publishProgress(FLAG);
                                 }
 
                             }
 
                             else
                             {
-                                Toast.makeText(getActivity(),
-                                        "Search error!", Toast.LENGTH_SHORT)
-                                        .show();
+                                FLAG=0;
+                                publishProgress(FLAG);
                             }
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<Post> call, @NonNull Throwable t) {
-                            Toast.makeText(getActivity(),
-                                    "Error occurred while getting request!", Toast.LENGTH_SHORT)
-                                    .show();
+                            FLAG=2;
+                            publishProgress(FLAG);
                             t.printStackTrace();
                         }
                     });
 
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values)
+        {
+            switch (FLAG)
+            {
+                case 0:
+                    Toast.makeText(getActivity(),
+                            "Search error!", Toast.LENGTH_SHORT)
+                            .show();
+                    break;
+                case 1:
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.activity_main, new FindCitySpinnerFragment())
+                            .commit();
+                    break;
+                case 2:
+                    Toast.makeText(getActivity(),
+                            "Error occurred while getting request!", Toast.LENGTH_SHORT)
+                            .show();
+                    break;
+            }
         }
     }
 }

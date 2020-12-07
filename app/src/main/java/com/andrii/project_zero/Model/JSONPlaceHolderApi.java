@@ -1,4 +1,4 @@
-package com.andrii.project_zero.Internet;
+package com.andrii.project_zero.Model;
 
 import com.andrii.project_zero.Model.Post;
 
